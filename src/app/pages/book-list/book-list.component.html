@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Book List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- This creates the loading animation if the website is still grabbing the api-->
+<ion-content>
+  <ng-template #loading>
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading books...</p>
+  </ng-template>
+
+  <!-- This displays the list of books-->
+  <ion-list *ngIf="books$ | async as books; else loading">
+    <ion-item *ngFor="let book of books">
+      <ion-label>
+        <h2>{{ book.title }}</h2>
+        <p>{{ book.author_name.join(', ') }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
