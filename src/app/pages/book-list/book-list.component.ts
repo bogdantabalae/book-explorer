@@ -12,6 +12,7 @@ interface Book {
   key: string;
   title: string;
   author_name: string[];
+  cover_i?: number;
 }
 
 // Creating the structure for the API
@@ -41,6 +42,7 @@ export class BookListComponent  implements OnInit {
       key: item.key,
       title: item.title,
       author_name: item.author_name || [],
+      cover_i: item.cover_i,
     })))
   );
   }

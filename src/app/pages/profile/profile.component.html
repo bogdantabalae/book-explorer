@@ -1,33 +1,153 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>My Profile</ion-title>
+    <ion-title class="ion-text-center">My Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="updateProfile(name.value, email.value, bio.value)">
-    <ion-item>
-      <ion-label position="floating">Name</ion-label>
-      <ion-input type="text" [(ngModel)]="profile.name" name="name" #name="ngModel" required></ion-input>
-    </ion-item>
+  <!-- Form to update the profile -->
+  <div class="profile-container">
+    <form (ngSubmit)="updateProfile(name.value, email.value, bio.value)" class="profile-form">
+      
+      <!-- Name input -->
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input 
+          type="text" 
+          [(ngModel)]="profile.name" 
+          name="name" 
+          #name="ngModel" 
+          required>
+        </ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="profile.email" name="email" #email="ngModel" required></ion-input>
-    </ion-item>
+      <!-- Email input -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input 
+          type="email" 
+          [(ngModel)]="profile.email" 
+          name="email" 
+          #email="ngModel" 
+          required>
+        </ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Bio</ion-label>
-      <ion-textarea [(ngModel)]="profile.bio" name="bio" #bio="ngModel" required></ion-textarea>
-    </ion-item>
+      <!-- Bio input -->
+      <ion-item>
+        <ion-label position="floating">Bio</ion-label>
+        <ion-textarea 
+          [(ngModel)]="profile.bio" 
+          name="bio" 
+          #bio="ngModel" 
+          required>
+        </ion-textarea>
+      </ion-item>
 
-    <ion-button expand="full" type="submit" [disabled]="!name.valid || !email.valid || !bio.valid">Update Profile</ion-button>
-  </form>
+      <!-- Submit button, disabled if any field is invalid -->
+      <ion-button 
+        expand="full" 
+        type="submit" 
+        [disabled]="!name.valid || !email.valid || !bio.valid">
+        Update Profile
+      </ion-button>
+    </form>
 
-  <div *ngIf="profile">
-    <h2>Profile Info:</h2>
-    <p><strong>Name:</strong> {{ profile.name }}</p>
-    <p><strong>Email:</strong> {{ profile.email }}</p>
-    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+    <!-- Display profile info -->
+    <div *ngIf="profile" class="profile-info">
+      <h2>Profile Info:</h2>
+      <div class="info-row">
+        <strong>Name:</strong>
+        <p>{{ profile.name }}</p>
+      </div>
+      <div class="info-row">
+        <strong>Email:</strong>
+        <p>{{ profile.email }}</p>
+      </div>
+      <div class="info-row">
+        <strong>Bio:</strong>
+        <p>{{ profile.bio }}</p>
+      </div>
+    </div>
   </div>
+
 </ion-content>
+
+<style>
+  /* Background color for the entire content */
+  .custom-dark-content {
+    --background: #1e1e1e;
+    color: #ffffff;
+  }
+
+  /* Profile container to center the content */
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  /* Form styling */
+  .profile-form {
+    width: 100%;
+    max-width: 500px;
+    background-color: #2a2a2a;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    margin-bottom: 2rem;
+  }
+
+  ion-item {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Button styling */
+  ion-button {
+    background-color: #3a3a3a;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+
+  /* Profile info section */
+  .profile-info {
+    background-color: #2a2a2a;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f0f0f0;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Styling each profile info row */
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #bbbbbb;
+  }
+
+  .info-row strong {
+    color: #ffffff;
+    width: 25%; /* Ensures labels (Name, Email, Bio) take up the same width */
+  }
+
+  p {
+    margin: 0;
+    width: 70%; /* Ensures the profile info text takes up the rest of the space */
+    word-wrap: break-word; /* Prevents long words from overflowing */
+  }
+
+</style>

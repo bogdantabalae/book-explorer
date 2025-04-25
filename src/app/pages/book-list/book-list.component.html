@@ -1,23 +1,110 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Book List</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-center">Book List</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<!-- This creates the loading animation if the website is still grabbing the api-->
-<ion-content>
+<ion-content class="ion-padding custom-dark-content">
+
+  <!-- This creates the loading animation when fetching the books-->
   <ng-template #loading>
-    <ion-spinner name="crescent"></ion-spinner>
-    <p>Loading books...</p>
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Loading books...</p>
+    </div>
   </ng-template>
 
-  <!-- This displays the list of books-->
-  <ion-list *ngIf="books$ | async as books; else loading">
-    <ion-item *ngFor="let book of books">
-      <ion-label>
-        <h2>{{ book.title }}</h2>
-        <p>{{ book.author_name.join(', ') }}</p>
-      </ion-label>
+  <!-- This displays the book list as cards-->
+  <ion-list *ngIf="books$ | async as books; else loading" class="book-list">
+    <ion-item *ngFor="let book of books" class="book-item">
+      <ion-card class="book-card">
+        <!-- Book Image (placeholder or real if available) -->
+        <img src="https://via.placeholder.com/150" alt="book cover" class="book-image" />
+        
+        <ion-card-header>
+          <ion-card-title>{{ book.title }}</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <p>{{ book.author_name.join(', ') }}</p>
+        </ion-card-content>
+      </ion-card>
     </ion-item>
   </ion-list>
+
 </ion-content>
+
+<style>
+  /* Background color for the entire content */
+  .custom-dark-content {
+    --background: #1e1e1e;
+    color: #ffffff;
+  }
+
+  /* Style for the loading container */
+  .loading-container {
+    text-align: center;
+    color: #ffffff;
+  }
+
+  /* Style for the book list container */
+  .book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  /* Style for each book card */
+  .book-item {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .book-card {
+    width: 200px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    margin: 0 10px;
+  }
+
+  /* Card hover effect */
+  .book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Styling for the book image */
+  .book-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* Card header styles */
+  ion-card-header {
+    background: #3a3a3a;
+    padding: 0.5rem;
+  }
+
+  ion-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* Card content styles */
+  ion-card-content {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  /* Styling for the ion-spinner during loading */
+  ion-spinner {
+    margin-bottom: 1rem;
+  }
+</style>
